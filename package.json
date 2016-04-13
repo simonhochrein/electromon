@@ -1,0 +1,23 @@
+{
+  "name": "electromon",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-prebuilt": "^0.37.5",
+    "watch": "^0.17.1"
+  },
+  "bin": {
+    "electromon": "./index.js"
+  },
+  "keywords": [
+    "electron",
+    "restart",
+    "watch"
+  ]
+}
