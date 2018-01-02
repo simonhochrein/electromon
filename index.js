@@ -2,21 +2,24 @@
 var electron = require('electron');
 var proc = require('child_process');
 var watch = require('watch');
-var fs = require("fs");
+var fs = require('fs');
 
 var child;
 child = proc.spawn(electron,['.']);
 const readline = require('readline');
 
-var settings = (fs.existsSync("./.electromonrc")?fs.readFileSync("./.electromonrc",'utf-8'):"");
+var settings = (fs.existsSync('./.electromonrc')?fs.readFileSync('./.electromonrc','utf-8'):'');
  watch.watchTree('.',{ignoreDotFiles:true}, function (f, curr, prev) {
-    if (typeof f == "object" && prev === null && curr === null) {
+    if (typeof f == 'object' && prev === null && curr === null) {
       // Finished walking the tree
     } else{
-        if(settings!=''&&RegExp(settings.replace(/\n/g,'')).test(f)==false){
-            debounce(restart(),750);
-        } else {
-            debounce(restart(),750);
+        if(settings!='') {
+          if(RegExp(settings.replace(/\n/g,'')).test(f)==false){
+            debounce(restart(),500);
+          }
+        }
+        else {
+          debounce(restart(),500);
         }
     }
   });
@@ -28,15 +31,15 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-console.log("Starting Electron App @ " + process.cwd());
+console.log('Starting Electron App @ ' + process.cwd());
 
 rl.on('line', (cmd) => {
-  if(cmd == "rs"){  
+  if(cmd == 'rs'){  
     restart();
   }
 });
 rl.on('SIGINT', (cmd) => {
-    console.log("Shutting Down Electron");
+    console.log('Shutting Down Electron');
     child.stdin.pause();
     child.kill();
     process.exit();
@@ -46,15 +49,8 @@ function restart(){
     child.stdin.pause();
     child.kill();
       child = proc.spawn(electron,['.']);
-    settings = (fs.existsSync("./.electromonrc")?fs.readFileSync("./.electromonrc",'utf-8'):"");
-
+    settings = (fs.existsSync('./.electromonrc')?fs.readFileSync('./.electromonrc','utf-8'):'');
 }
-child.on('exit',function(){
-    console.log("Shutting Down Electron");
-    child.stdin.pause();
-    child.kill();
-    process.exit();
-})
  
 function debounce(func, wait, immediate) {
 	var timeout;
