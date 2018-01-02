@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-var electron = require('electron-prebuilt');
+var electron = require('electron');
 var proc = require('child_process');
 var watch = require('watch');
+var fs = require("fs");
 
 var child;
 child = proc.spawn(electron,['.']);
 const readline = require('readline');
 
-var settings = (require("fs").existsSync("./.electromonrc")?require("fs").readFileSync("./.electromonrc",'utf-8'):"");
+var settings = (fs.existsSync("./.electromonrc")?fs.readFileSync("./.electromonrc",'utf-8'):"");
  watch.watchTree('.',{ignoreDotFiles:true}, function (f, curr, prev) {
     if (typeof f == "object" && prev === null && curr === null) {
       // Finished walking the tree
@@ -27,7 +28,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-console.log("Starting Electron App @ " + proc.execSync('pwd',{encoding:"utf-8"}));
+console.log("Starting Electron App @ " + process.cwd());
 
 rl.on('line', (cmd) => {
   if(cmd == "rs"){  
@@ -45,7 +46,7 @@ function restart(){
     child.stdin.pause();
     child.kill();
       child = proc.spawn(electron,['.']);
-    settings = (require("fs").existsSync("./.electromonrc")?require("fs").readFileSync("./.electromonrc",'utf-8'):"");
+    settings = (fs.existsSync("./.electromonrc")?fs.readFileSync("./.electromonrc",'utf-8'):"");
 
 }
 child.on('exit',function(){
