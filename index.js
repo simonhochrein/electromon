@@ -5,7 +5,7 @@ var watch = require('watch');
 var fs = require('fs');
 
 var child;
-child = proc.spawn(electron,['.']);
+child = proc.spawn(electron,process.argv.slice(2, process.argc));
 const readline = require('readline');
 
 var settings = (fs.existsSync('./.electromonrc')?fs.readFileSync('./.electromonrc','utf-8'):'');
@@ -48,7 +48,7 @@ function restart(){
     console.log('Restarting');
     child.stdin.pause();
     child.kill();
-      child = proc.spawn(electron,['.']);
+      child = proc.spawn(electron,process.argv.slice(2, process.argc));
     settings = (fs.existsSync('./.electromonrc')?fs.readFileSync('./.electromonrc','utf-8'):'');
 }
  

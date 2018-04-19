@@ -1,13 +1,13 @@
 {
   "name": "electromon",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "index.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
     "electron": "latest",
-    "watch": "^0.17.1"
+    "watch": "^1.0.2"
   },
   "bin": {
     "electromon": "./index.js"
@@ -17,8 +17,8 @@
     "restart",
     "watch"
   ],
-  "repository": { 
-    "type" : "git",
-    "url" : "https://github.com/simonhochrein/electromon.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonhochrein/electromon.git"
   }
 }
