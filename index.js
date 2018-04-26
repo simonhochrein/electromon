@@ -34,7 +34,7 @@ const rl = readline.createInterface({
 console.log('Starting Electron App @ ' + process.cwd());
 
 rl.on('line', (cmd) => {
-  if(cmd == 'rs'){  
+  if(cmd == 'rs'){
     restart();
   }
 });
@@ -50,8 +50,9 @@ function restart(){
     child.kill();
       child = proc.spawn(electron,process.argv.slice(2, process.argc));
     settings = (fs.existsSync('./.electromonrc')?fs.readFileSync('./.electromonrc','utf-8'):'');
+    child.stdout.pipe(process.stdout);
 }
- 
+
 function debounce(func, wait, immediate) {
 	var timeout;
 	return function() {
@@ -66,4 +67,4 @@ function debounce(func, wait, immediate) {
 		if (callNow) func.apply(context, args);
 	};
 };
-// One-liner for current directory, ignores .dotfiles 
+// One-liner for current directory, ignores .dotfiles
